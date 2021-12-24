@@ -1,5 +1,5 @@
-export const SET_AUTH_STATE = (state, value) => {
-    state.isAuth = value
+export const SET_USERS = (state, users) => {
+    state.users = users 
 }
 
 export const SET_USER = (state, user) => {

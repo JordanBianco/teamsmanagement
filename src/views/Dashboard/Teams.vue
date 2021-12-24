@@ -1,0 +1,16 @@
+<template>
+    <div>
+        <p>TEAMS</p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit impedit rem ratione maiores nulla, consequatur totam. Corporis ipsum cum explicabo voluptates ex deserunt. Modi ex hic quidem ipsum facere illo laudantium, soluta recusandae quo animi, vel, possimus consectetur libero dolores. Assumenda repellendus, excepturi debitis quam corporis illum libero consequatur ab, vitae vel nisi inventore quae reprehenderit ad quibusdam quo perferendis similique at ducimus atque, necessitatibus iusto. Blanditiis dicta quisquam esse earum quae asperiores repellat quos laudantium animi quia temporibus deleniti architecto dolorem nobis inventore cumque id culpa, pariatur officiis? Libero sit harum molestias ea quo corporis officiis, possimus dolore, cupiditate repellat architecto autem odio quia quibusdam totam alias accusantium culpa consectetur! Eos soluta possimus blanditiis, illum ea libero voluptates saepe voluptatem porro nesciunt totam debitis eum iure asperiores recusandae iste eaque, pariatur reprehenderit repellat, tempore inventore dolor non harum explicabo? Deserunt enim porro impedit ipsum animi corporis laboriosam officia amet quae iure sunt temporibus eaque, reiciendis, minus, pariatur placeat mollitia optio? Velit, rem. Tenetur modi impedit labore atque consequatur ducimus cupiditate, pariatur ut tempora, consectetur quasi, dignissimos facilis laboriosam quos eveniet doloribus distinctio. Laborum, molestias quos recusandae, laboriosam voluptatem qui in mollitia consequatur, impedit odit incidunt! Ipsa quo, quos esse vitae voluptatibus eligendi eaque perspiciatis deserunt atque sed exercitationem corporis et beatae, veniam odio culpa! Id tenetur minima repellat sit inventore officiis illo! Quidem ipsam expedita sunt id recusandae, architecto omnis facere minima repellendus obcaecati rerum pariatur similique dolorem! Perspiciatis et suscipit exercitationem veniam, culpa dolorum iusto magni inventore sunt ipsam optio dolore velit impedit labore saepe illo facere nihil expedita quidem rerum quia magnam? Sit vitae ad similique voluptatibus dolore ex quisquam suscipit, officia corrupti totam quo soluta fugit rerum non at odit illum doloremque nesciunt. Nemo excepturi quaerat accusantium omnis vero delectus ullam debitis fugit, corporis inventore deleniti ab tempora architecto atque, illum incidunt soluta, sint corrupti totam maiores sequi? Deserunt velit quae voluptates necessitatibus ea saepe illo magnam incidunt laborum dolor. Consequatur doloribus corporis animi officiis ex, dolore a assumenda, fugit qui, earum alias excepturi eius deleniti! Porro quasi voluptas harum sunt! Neque harum maxime earum officiis illum, rerum recusandae! Beatae perferendis sequi corrupti eligendi, temporibus eaque cum! Incidunt maxime culpa, enim minus accusantium facere, doloribus cum obcaecati iste saepe hic eaque quia porro architecto quod fugit consectetur expedita sunt, totam quis iure. Labore eaque rerum quo, libero nam culpa nisi soluta aspernatur cupiditate laboriosam, facere mollitia.
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>

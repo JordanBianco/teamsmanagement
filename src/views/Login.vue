@@ -1,23 +1,33 @@
 <template>
-    <div>
-        <form @submit.prevent="login">
-            <div>
-                <label for="email">Email</label>
-                <baseInput
-                    v-model="user.email"
-                    type="email"
-                    placeholder="inserisci la tua email..."/>
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <baseInput
-                    v-model="user.password"
-                    type="password"
-                    placeholder="inserisci la tua password..." />
-            </div>
-            <baseButton text="Login" />
-
-            <!-- {{ errors }} -->
+    <div class="bg-gray-800 flex justify-center items-center">
+        <form @submit.prevent="login" class="w-1/3 mx-auto bg-gray-100 shadow-2xl rounded-lg px-6 py-8">
+            <h2 class="text-2xl text-gray-700 mb-4">Bentornato</h2>
+            <errorMessage
+                :errors="errors"
+            />
+            <baseInput
+                v-model="user.email"
+                type="email"
+                name="email"
+                required="required"
+                placeholder="inserisci la tua email..."
+                label="Email"
+                class="mb-4"
+            />
+            <baseInput
+                v-model="user.password"
+                type="password"
+                name="password"
+                required="required"
+                placeholder="inserisci la tua password..."
+                label="Password"
+                class="mb-8"
+            />
+            <baseButton
+                class="w-full"
+                text="Login"
+            />
+            <p class="text-xs text-gray-500 mt-0.5">Password dimenticata?</p>
         </form>
     </div>
 </template>
@@ -25,12 +35,14 @@
 <script>
 import baseButton from '@/components/Layouts/baseButton'
 import baseInput from '@/components/Layouts/baseInput'
+import errorMessage from '@/components/Layouts/errorMessage'
 
 export default {
     name: 'Login',
     components: {
         baseButton,
-        baseInput
+        baseInput,
+        errorMessage
     },
     data() {
         return {
@@ -41,14 +53,15 @@ export default {
         }
     },
     computed: {
-        errorKeys() {
-            if (this.$store.state.auth.errors.length != 0) {
-                console.log(Object.keys(this.$store.state.auth.errors))
-            }
+        errors() {
+            return this.$store.state.auth.errors
         }
     },
     methods: {
         login() {
+            if (this.errors.length != 0) {
+                this.$store.dispatch('auth/clearErrors')
+            }
             this.$store.dispatch('auth/login', { user: this.user })
         }
     }

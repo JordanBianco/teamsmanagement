@@ -1,7 +1,7 @@
 <template>
     <button
         :type="type"
-        class=""
+        class="bg-indigo-500 hover:bg-indigo-600 transition text-white rounded px-3 py-1.5 text-sm"
     >
         {{ text }}
     </button>
