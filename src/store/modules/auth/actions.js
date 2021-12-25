@@ -17,7 +17,7 @@ export const login = async ({commit}, {user}) => {
         if (error.response.status === 422) {
             commit('SET_ERRORS', error.response.data.errors)
         }
-    }   
+    }
 }
 
 export const logout = async ({commit}) => {

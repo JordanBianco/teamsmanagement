@@ -3,7 +3,8 @@
         <div class="flex justify-end py-3.5 px-8">
             <userAvatar
                 :user="user"
-                :name="user.name"    
+                :name="user.name"
+                classes="w-8 h-8 rounded-full"   
             />
         </div>
     </nav>

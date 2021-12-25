@@ -7,8 +7,8 @@
         <span v-if="name" class="text-gray-500 text-sm">{{ name }}</span>
         <img
             :src="avatar"
-            alt=""
-            class="w-8 h-8">
+            alt="user_avatar"
+            :class="classes">
     </div>
 </template>
 
@@ -24,6 +24,11 @@ export default {
         name: {
             type: String,
             required: false
+        },
+        classes: {
+            type: String,
+            required: false,
+            default: "w-9 h-9 rounded-full"
         }
     },
     computed: {
@@ -32,7 +37,7 @@ export default {
                 return this.user.avatar
             } else {
                 return 'https://eu.ui-avatars.com/api/?name=' + this.user.name
-                    + '&rounded=true'
+                    // + '&rounded=true'
                     + '&color=818cf8'
                     + '&background=ccd1fc'
             }

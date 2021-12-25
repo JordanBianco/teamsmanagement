@@ -1,5 +1,5 @@
 <template>
-    <aside class="bg-c-light-gray min-h-screen flex-none w-56 fixed top-0">
+    <aside class="bg-c-light-gray min-h-screen flex-none w-56 fixed top-0 z-10">
         <header class="p-4 text-lg flex items-center justify-between bg-c-dark-gray">
             <div>
                 <span class="text-indigo-400">Vue</span>

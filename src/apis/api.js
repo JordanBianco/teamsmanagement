@@ -19,6 +19,7 @@ api.interceptors.response.use(function (response) {
     //     store.dispatch('auth/logout')
     //     // return Promise.reject(error);
     // }
+    return Promise.reject(error)
 });
 
 export default api;

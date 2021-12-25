@@ -5,3 +5,7 @@ export const users = (state) => {
 export const user = (state) => {
     return state.user
 }
+
+export const errors = (state) => {
+    return state.errors
+}

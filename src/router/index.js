@@ -36,6 +36,13 @@ const routes = [
 				meta: { auth: true }
 			},
 			{
+				path: 'utenti/:slug/edit',
+				name: 'Users.edit',
+				component: () => import(/* webpackChunkName: "usersEdit" */ '../views/Dashboard/Users/Edit.vue'),
+				props: true,
+				meta: { auth: true }
+			},
+			{
 				path: 'teams',
 				name: 'Teams',
 				component: () => import(/* webpackChunkName: "teams" */ '../views/Dashboard/Teams.vue'),

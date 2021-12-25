@@ -1,15 +1,15 @@
 <template>
-    <div v-if="user">
+    <div v-if="user" class="bg-indigo-50">
         <theHeader />
 
-        <section class="flex">
-            <theSidebar />
+        <theSidebar />
 
+        <transition name="fade">
             <router-view
-                class="min-h-screen w-full bg-indigo-50 py-6 pl-64 pr-8"
+                class="min-h-screen w-full py-6 pl-64 pr-8 z-20"
                 :key="$route.path">
             </router-view>
-        </section>
+        </transition>
     </div>
 </template>
 

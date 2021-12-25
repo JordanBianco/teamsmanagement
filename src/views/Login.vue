@@ -9,7 +9,6 @@
                 v-model="user.email"
                 type="email"
                 name="email"
-                required="required"
                 placeholder="inserisci la tua email..."
                 label="Email"
                 class="mb-4"
@@ -18,7 +17,6 @@
                 v-model="user.password"
                 type="password"
                 name="password"
-                required="required"
                 placeholder="inserisci la tua password..."
                 label="Password"
                 class="mb-8"
@@ -52,6 +50,7 @@ export default {
             }
         }
     },
+    // Aggiungere watch quando avrò pagina password dimenticata
     computed: {
         errors() {
             return this.$store.state.auth.errors
