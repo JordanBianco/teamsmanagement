@@ -9,3 +9,7 @@ export const user = (state) => {
 export const errors = (state) => {
     return state.errors
 }
+
+export const success = (state) => {
+    return state.success
+}

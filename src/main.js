@@ -5,6 +5,8 @@ import store from './store'
 
 import './assets/tailwind.css'
 
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 import moment from 'moment'
 Vue.prototype.$moment = moment
 

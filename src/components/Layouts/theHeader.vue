@@ -1,5 +1,5 @@
 <template>
-    <nav class="border-b border-gray-200 sticky top-0 bg-white">
+    <nav class="border-b border-gray-200 sticky top-0 bg-white z-10">
         <div class="flex justify-end py-3.5 px-8">
             <userAvatar
                 :user="user"

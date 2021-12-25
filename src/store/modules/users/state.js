@@ -1,5 +1,6 @@
 export default {
-    users: [],
+    users: {},
     user: null,
-    errors: []
+    errors: [],
+    success: false
 }

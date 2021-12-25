@@ -1,14 +1,15 @@
 import api from '@/apis/api'
 import router from '@/router'
 
-export const getUsers = async ({commit}, {filters}) => {
+export const getUsers = async ({commit}, {filters, page}) => {
     try {
         const res = await api.get(
             'admin/users?search=' + filters.search
             + '&admin=' + filters.admin
-            + '&perPage=' + filters.perPage
             + '&field=' + filters.field
             + '&dir=' + filters.dir
+            + '&perPage=' + filters.perPage
+            + '&page=' + page
         )
         if (res.status === 200) {
             commit('SET_USERS', res.data)
@@ -56,7 +57,7 @@ export const deleteUser = async ({commit}, {id, index}) => {
         const res = await api.delete('admin/users/' + id + '/delete')
         if (res.status === 200) {
             if (index) {
-                commit('DELETE_USER', index)            
+                commit('DELETE_USER', index)
             }
             else {
                 router.push({ name: 'Users' })
@@ -67,6 +68,21 @@ export const deleteUser = async ({commit}, {id, index}) => {
     }   
 }
 
+export const deleteUsers = async ({commit}, {users}) => {
+    try {
+        const res = await api.delete('admin/users/delete', { params: {ids: users }})
+        if (res.status === 200) {
+            commit('SET_SUCCESS_STATUS', true)
+        }
+    } catch (error) {
+        console.log(error)
+    }   
+}
+
 export const clearErrors = ({commit}) => {
     commit('SET_ERRORS', [])
+}
+
+export const setSuccessStatus = ({commit}, {value}) => {
+    commit('SET_SUCCESS_STATUS', value)
 }

@@ -52,53 +52,90 @@
            <table class="w-full">
                <tableHeader :columns="columns" />
 
-                <tr v-for="(user, index) in users.data" :key="index" class="odd:bg-gray-100 even:bg-gray-50 text-gray-500 text-sm">
-                    <td class="p-2 text-center text-xs text-gray-400 font-semibold">
-                        #{{ user.id }}
-                    </td>
-                    <td class="p-2 flex justify-center">
-                        <userAvatar :user="user" />
-                    </td>
-                    <td class="py-2 px-4 whitespace-nowrap">
-                        <div class="relative">
-                            <router-link :to="{ name: 'Users.show', params: { slug: user.slug }}">
-                                {{ user.name }}
-                            </router-link>
-                            <div
-                                class="w-2 h-2 bg-indigo-400 rounded-full absolute -left-5 top-2"
-                                v-if="user.is_admin"></div>
-                        </div>
-                    </td>
-                    <td class="py-2 px-4 whitespace-nowrap">{{ user.email }}</td>
-                    <td class="py-2 px-4 whitespace-nowrap">Lorem, ipsum.</td>
-                    <td class="py-2 px-4 whitespace-nowrap">{{ $moment(user.created_at).format('DD/MM/YYYY, HH:mm') }}</td>
-                    <td class="py-2 px-4">
-                        <div class="flex items-center space-x-1">
-                            <router-link
-                                title="Dettagli"
-                                class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:text-gray-500 transition"
-                                :to="{ name: 'Users.show', params: { slug: user.slug }}">
-                                    <svg class="w-5 h-5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M21.92,11.6C19.9,6.91,16.1,4,12,4S4.1,6.91,2.08,11.6a1,1,0,0,0,0,.8C4.1,17.09,7.9,20,12,20s7.9-2.91,9.92-7.6A1,1,0,0,0,21.92,11.6ZM12,18c-3.17,0-6.17-2.29-7.9-6C5.83,8.29,8.83,6,12,6s6.17,2.29,7.9,6C18.17,15.71,15.17,18,12,18ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,14Z"/></svg>
-                            </router-link>
+                <tr
+                    v-for="(user, index) in users.data"
+                    :key="index"
+                    :class="[ selectedUsers.includes(user.id) ? 'bg-indigo-50' : 'odd:bg-gray-100 even:bg-gray-50' ]"
+                    class="text-gray-500 text-sm">
+                        <td class="pl-4 py-2 text-center">
+                            <input
+                                type="checkbox"
+                                name="selectedUsers"
+                                class="mt-2"
+                                :value="user.id"
+                                v-model="selectedUsers"
+                            >
+                        </td>
+                        <td class="p-2 text-center text-xs text-gray-400 font-semibold">
+                            #{{ user.id }}
+                        </td>
+                        <td class="p-2 flex justify-center">
+                            <userAvatar :user="user" />
+                        </td>
+                        <td class="py-2 px-4 whitespace-nowrap">
+                            <div class="relative">
+                                <router-link :to="{ name: 'Users.show', params: { slug: user.slug }}">
+                                    {{ user.name }}
+                                </router-link>
+                                <div
+                                    class="w-2 h-2 bg-indigo-400 rounded-full absolute -left-5 top-2"
+                                    v-if="user.is_admin"></div>
+                            </div>
+                        </td>
+                        <td class="py-2 px-4 whitespace-nowrap">{{ user.email }}</td>
+                        <td class="py-2 px-4 whitespace-nowrap">Lorem, ipsum.</td>
+                        <td class="py-2 px-4 whitespace-nowrap">{{ $moment(user.created_at).format('DD/MM/YYYY, HH:mm') }}</td>
+                        <td class="py-2 px-4">
+                            <div class="flex items-center space-x-1">
+                                <router-link
+                                    title="Dettagli"
+                                    class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:text-gray-500 transition"
+                                    :to="{ name: 'Users.show', params: { slug: user.slug }}">
+                                        <svg class="w-5 h-5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M21.92,11.6C19.9,6.91,16.1,4,12,4S4.1,6.91,2.08,11.6a1,1,0,0,0,0,.8C4.1,17.09,7.9,20,12,20s7.9-2.91,9.92-7.6A1,1,0,0,0,21.92,11.6ZM12,18c-3.17,0-6.17-2.29-7.9-6C5.83,8.29,8.83,6,12,6s6.17,2.29,7.9,6C18.17,15.71,15.17,18,12,18ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,14Z"/></svg>
+                                </router-link>
 
-                            <router-link
-                                title="Modifica"
-                                class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:text-gray-500 transition"
-                                :to="{ name: 'Users.edit', params: { slug: user.slug }}">
-                                    <svg class="w-5 h-5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M5,18H9.24a1,1,0,0,0,.71-.29l6.92-6.93h0L19.71,8a1,1,0,0,0,0-1.42L15.47,2.29a1,1,0,0,0-1.42,0L11.23,5.12h0L4.29,12.05a1,1,0,0,0-.29.71V17A1,1,0,0,0,5,18ZM14.76,4.41l2.83,2.83L16.17,8.66,13.34,5.83ZM6,13.17l5.93-5.93,2.83,2.83L8.83,16H6ZM21,20H3a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2Z"/></svg>
-                            </router-link>
-                            
-                            <button
-                                @click="deleteUser(user, index)"
-                                title="Elimina"
-                                class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:bg-red-200 hover:text-red-500 transition">
-                                    <svg class="w-5 h-5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z"/></svg>
-                            </button>
-                        </div>
-                    </td>
+                                <router-link
+                                    title="Modifica"
+                                    class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:text-gray-500 transition"
+                                    :to="{ name: 'Users.edit', params: { slug: user.slug }}">
+                                        <svg class="w-5 h-5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M5,18H9.24a1,1,0,0,0,.71-.29l6.92-6.93h0L19.71,8a1,1,0,0,0,0-1.42L15.47,2.29a1,1,0,0,0-1.42,0L11.23,5.12h0L4.29,12.05a1,1,0,0,0-.29.71V17A1,1,0,0,0,5,18ZM14.76,4.41l2.83,2.83L16.17,8.66,13.34,5.83ZM6,13.17l5.93-5.93,2.83,2.83L8.83,16H6ZM21,20H3a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2Z"/></svg>
+                                </router-link>
+                                
+                                <button
+                                    @click="deleteUser(user, index)"
+                                    title="Elimina"
+                                    class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:bg-red-200 hover:text-red-500 transition">
+                                        <svg class="w-5 h-5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z"/></svg>
+                                </button>
+                            </div>
+                        </td>
                 </tr>
             </table>
         </div>
+
+        <footer class="flex items-center m-4" :class="[ selectedUsers.length ? 'justify-between' : 'justify-end' ]">
+            <div v-if="selectedUsers.length" class="flex space-x-4 items-center">
+                <p class="text-gray-500 text-sm">{{ selectedUsers.length }} utenti selezionati</p>
+                <button
+                    @click="deleteUsers(selectedUsers)"
+                    title="Elimina utenti"
+                    class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:bg-red-200 hover:text-red-500 transition">
+                        <svg class="w-5 h-5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z"/></svg>
+                </button>
+            </div>
+
+            <pagination
+                class="flex space-x-4 text-gray-500"
+                :data="users"
+                @pagination-change-page="getUsers">
+                    <div slot="prev-nav"  class="bg-indigo-400 p-0.5 rounded-full text-white">
+                        <svg class="w-5 h-5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M11.29,12l3.54-3.54a1,1,0,0,0,0-1.41,1,1,0,0,0-1.42,0L9.17,11.29a1,1,0,0,0,0,1.42L13.41,17a1,1,0,0,0,.71.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41Z"/></svg>
+                    </div>
+                    <div slot="next-nav" class="bg-indigo-400 p-0.5 rounded-full text-white">
+                        <svg class="w-5 h-5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M14.83,11.29,10.59,7.05a1,1,0,0,0-1.42,0,1,1,0,0,0,0,1.41L12.71,12,9.17,15.54a1,1,0,0,0,0,1.41,1,1,0,0,0,.71.29,1,1,0,0,0,.71-.29l4.24-4.24A1,1,0,0,0,14.83,11.29Z"/></svg>
+                    </div>
+            </pagination>
+        </footer>
     </div>
 </template>
 
@@ -120,6 +157,7 @@ export default {
     },
     data() {
         return {
+            selectedUsers: [],
             filters: {
                 search: '',
                 perPage: 10,
@@ -129,6 +167,7 @@ export default {
                 admin: 'Tutti'
             },
             columns: [
+                '',
                 'ID',
                 'avatar',
                 'name',
@@ -167,18 +206,30 @@ export default {
         "filters.perPage": function() {
             this.getUsers()
         },
+        success() {
+            if (this.success) {
+                this.$store.dispatch('users/setSuccessStatus', {value: false})
+                this.getUsers()
+            }
+        }
     },
     computed: {
         users() {
             return this.$store.getters['users/users']
+        },
+        success() {
+            return this.$store.getters['users/success']
         },
         teams() {
             return []
         }
     },
     methods: {
-        getUsers() {
-            this.$store.dispatch('users/getUsers', {filters: this.filters})
+        getUsers(page = 1) {
+            this.$store.dispatch('users/getUsers', {
+                filters: this.filters,
+                page: page
+            })
         },
         deleteUser(user, index) {
             if (confirm('Eliminare ' + user.name  +'?')) {
@@ -189,6 +240,12 @@ export default {
                 })
             }
         },
+        deleteUsers(users) {
+            if (confirm('Eliminare ' + users.length  +' utenti?')) {
+                this.$store.dispatch('users/deleteUsers', {users})
+                this.selectedUsers = []
+            }
+        }
     }
 
 }
