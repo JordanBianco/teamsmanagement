@@ -7,10 +7,7 @@
                 v-if="svg"
                 v-html="svg">
             </div>
-        <span
-            class="tracking-wider">
-                {{ text }}    
-        </span>
+        <span class="tracking-wider">{{ text }}</span>
     </router-link>
 </template>
 

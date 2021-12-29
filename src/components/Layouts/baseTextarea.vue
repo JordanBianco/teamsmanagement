@@ -4,34 +4,34 @@
             v-if="label"
             :for="name"
             class="text-sm text-gray-400">
-                {{ label }}
+                {{ label }}    
         </label>
-        <input
-            :type="type"
+        <textarea
             :name="name"
-            :required="required"
+            :rows="rows"
             :placeholder="placeholder"
+            :required="required"
             @input="updateValue"
-            :class="{ 'pl-8' : type == 'search' }"
-            class="border border-gray-200 rounded-lg px-2 py-1.5 text-sm w-full transition focus:outline-none focus:border-gray-400">
+            class="resize-none border border-gray-200 rounded-lg px-2 py-1.5 text-sm w-full transition focus:outline-none focus:border-gray-400"></textarea>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Layouts.baseInput',
+    name: 'Layouts.baseTextarea',
     props: {
-        type: {
+        label: {
             type: String,
-            default: "text"
+            default: null,
+            required: false
         },
         name: {
             type: String,
             required: true
         },
-        label: {
-            type: String,
-            default: null,
+        rows: {
+            type: Number,
+            default: 5,
             required: false
         },
         required: {

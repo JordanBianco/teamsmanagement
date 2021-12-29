@@ -54,6 +54,20 @@
                         class="border border-gray-200 rounded-lg px-2 py-1.5 text-sm w-full transition focus:outline-none focus:border-gray-400">
                 </div>
                 <div class="mb-4">
+                    <label class="block text-sm text-gray-400">Team</label>
+                    <div
+                        v-for="team in user.teams"
+                        :key="team.id"
+                        :class="{ 'flex items-baseline space-x-2' : user.teams }">
+                            <div
+                                v-if="team.color"
+                                class="w-2 h-2 rounded-full"
+                                :style="'background:' + team.color">
+                            </div>
+                            <span>{{ team.name }}</span>
+                    </div>
+                </div>
+                <div class="mb-4">
                     <label class="block text-sm text-gray-400">Genere</label>
                     <div class="flex items-center space-x-4">
                         <div class="flex items-center space-x-1">
@@ -98,7 +112,7 @@
                             <span class="text-sm text-gray-500">No</span>
                         </div>
                     </div>
-                </div> 
+                </div>
 
                 <baseButton
                     text="Salva"

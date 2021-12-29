@@ -3,14 +3,15 @@
         <label
             v-if="label"
             :for="name"
-            class="text-sm text-gray-400">
-                {{ label }}
+            class="text-gray-500 mb-1 block text-sm">
+            {{ label }}
         </label>
+
         <select
-                @input="updateValue"
-                :name="name"
-                class="text-gray-500 px-2 py-1.5 text-sm rounded-lg focus:outline-none border focus:border-gray-300 transition w-full"
-            >
+            @input="updateValue"
+            :name="name"
+            class="text-gray-400 bg-c-light-gray p-2 text-sm rounded-lg focus:outline-none border border-gray-700 focus:border-gray-600 transition w-full"
+        >
             <option v-if="text" value="">{{ text }}</option>
             <option
                 v-for="(value, i) in values"
@@ -26,6 +27,10 @@
 export default {
     name: 'Layouts.filterInput',
     props: {
+        label: {
+            type: String,
+            required: false
+        },
         name: {
             type: String,
             required: true
@@ -37,11 +42,6 @@ export default {
         values: {
             type: Array,
             required: true
-        },
-        label: {
-            type: String,
-            default: null,
-            required: false
         },
     },
     methods: {

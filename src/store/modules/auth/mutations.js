@@ -9,3 +9,7 @@ export const SET_USER = (state, user) => {
 export const SET_ERRORS = (state, errors) => {
     state.errors = errors
 }
+
+export const SET_LOADING_STATUS = (state, value) => {
+    state.loading = value
+}

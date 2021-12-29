@@ -6,6 +6,7 @@ export const getUsers = async ({commit}, {filters, page}) => {
         const res = await api.get(
             'admin/users?search=' + filters.search
             + '&admin=' + filters.admin
+            + '&team=' + filters.team
             + '&field=' + filters.field
             + '&dir=' + filters.dir
             + '&perPage=' + filters.perPage
@@ -13,6 +14,17 @@ export const getUsers = async ({commit}, {filters, page}) => {
         )
         if (res.status === 200) {
             commit('SET_USERS', res.data)
+        }
+    } catch (error) {
+        console.log(error)
+    }   
+}
+
+export const getAllTeams = async ({commit}) => {
+    try {
+        const res = await api.get('admin/users/teams')
+        if (res.status === 200) {
+            commit('SET_TEAMS', res.data.data)
         }
     } catch (error) {
         console.log(error)

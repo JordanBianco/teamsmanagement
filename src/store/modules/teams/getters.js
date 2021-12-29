@@ -1,13 +1,9 @@
-export const users = (state) => {
-    return state.users
-}
-
-export const user = (state) => {
-    return state.user
-}
-
 export const teams = (state) => {
     return state.teams
+}
+
+export const team = (state) => {
+    return state.team
 }
 
 export const errors = (state) => {

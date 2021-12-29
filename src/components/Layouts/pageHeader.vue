@@ -8,7 +8,7 @@
         <!-- Breadcrumb, che può avere una o più rotte -->
         <section
             v-if="routes"
-            class="flex items-baseline space-x-0.5 text-sm">
+            class="flex items-center space-x-0.5 text-sm">
                 <div
                     v-for="route, index in routes"
                     :key="index"
@@ -27,7 +27,6 @@
                 </div>
 
                 <span class="text-indigo-400">{{ resource }}</span>
-
         </section>        
     </header>
 </template>

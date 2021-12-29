@@ -1,17 +1,13 @@
-export const SET_USERS = (state, users) => {
-    state.users = users 
-}
-
-export const SET_USER = (state, user) => {
-    state.user = user
-}
-
 export const SET_TEAMS = (state, teams) => {
     state.teams = teams 
 }
 
-export const DELETE_USER = (state, index) => {
-    state.users.data.splice(index, 1)
+export const SET_TEAM = (state, team) => {
+    state.team = team
+}
+
+export const DELETE_TEAM = (state, index) => {
+    state.teams.data.splice(index, 1)
 }
 
 export const SET_ERRORS = (state, errors) => {

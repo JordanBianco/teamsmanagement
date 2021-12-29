@@ -1,5 +1,6 @@
 export default {
     isAuth: false,
     user: null,
-    errors: []
+    errors: [],
+    loading: false
 }

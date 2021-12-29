@@ -3,7 +3,7 @@
         <pageHeader 
             title="Gestione Utenti"
         />
-        
+
         <section class="bg-white mb-4 p-4 flex justify-between rounded-lg shadow-custom">
             <div class="w-1/3">
                 <div class="relative">
@@ -18,18 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-2/3 flex justify-end space-x-3">
-                <baseSelectInput
-                    name="admin"
-                    v-model="filters.admin"
-                    :values="adminVal"
-                />
-                <baseSelectInput
-                    name="team"
-                    text="Filtra per team"
-                    v-model="filters.team"
-                    :values="teams"
-                />
+            <div class="w-2/3 flex justify-end items-center space-x-3">
                 <baseSelectInput
                     name="field"
                     v-model="filters.field"
@@ -45,6 +34,9 @@
                     v-model="filters.perPage"
                     :values="perPageVal"
                 />
+                <div @click="toggleFiltersMenu()" class="cursor-pointer">
+                    <svg class="w-5 h-5 flex-none text-gray-400 hover:text-gray-500 transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M7,6H6V3A1,1,0,0,0,4,3V6H3A1,1,0,0,0,3,8H7A1,1,0,0,0,7,6ZM5,10a1,1,0,0,0-1,1V21a1,1,0,0,0,2,0V11A1,1,0,0,0,5,10Zm7,8a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Zm9-8H20V3a1,1,0,0,0-2,0v7H17a1,1,0,0,0,0,2h4a1,1,0,0,0,0-2Zm-2,4a1,1,0,0,0-1,1v6a1,1,0,0,0,2,0V15A1,1,0,0,0,19,14Zm-5,0H13V3a1,1,0,0,0-2,0V14H10a1,1,0,0,0,0,2h4a1,1,0,0,0,0-2Z"/></svg>
+                </div>
             </div>
         </section>
 
@@ -69,7 +61,7 @@
                         <td class="p-2 text-center text-xs text-gray-400 font-semibold">
                             #{{ user.id }}
                         </td>
-                        <td class="p-2 flex justify-center">
+                        <td class="pl-5 py-2">
                             <userAvatar :user="user" />
                         </td>
                         <td class="py-2 px-4 whitespace-nowrap">
@@ -83,7 +75,19 @@
                             </div>
                         </td>
                         <td class="py-2 px-4 whitespace-nowrap">{{ user.email }}</td>
-                        <td class="py-2 px-4 whitespace-nowrap">Lorem, ipsum.</td>
+                        <td class="py-2 px-4 whitespace-nowrap">
+                            <div
+                                v-for="team in user.teams"
+                                :key="team.id"
+                                :class="{ 'flex items-baseline space-x-2' : user.teams }">
+                                    <div
+                                        v-if="team.color"
+                                        class="w-2 h-2 rounded-full"
+                                        :style="'background:' + team.color">
+                                    </div>
+                                    <span>{{ team.name }}</span>
+                            </div>
+                        </td>
                         <td class="py-2 px-4 whitespace-nowrap">{{ $moment(user.created_at).format('DD/MM/YYYY, HH:mm') }}</td>
                         <td class="py-2 px-4">
                             <div class="flex items-center space-x-1">
@@ -136,6 +140,49 @@
                     </div>
             </pagination>
         </footer>
+
+        <!-- filters -->
+        <aside :class="{ 'translate-x-full' : !filtersMenu }" class="fixed transition duration-200 ease-in-out right-0 bottom-0 h-screen transform w-64 bg-c-light-gray text-gray-200">
+            <div class="mt-36 px-4 py-2.5">
+                <header class="mb-10">
+                    <div class="flex items-center space-x-2 text-gray-500">
+                        <div @click="toggleFiltersMenu()" class="hover:text-gray-400 hover:border-gray-400 transition border p-1 rounded-lg border-gray-500 cursor-pointer">
+                            <svg class="w-5 h-5 flex-none" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path fill="currentColor" d="M17.92,11.62a1,1,0,0,0-.21-.33l-5-5a1,1,0,0,0-1.42,1.42L14.59,11H7a1,1,0,0,0,0,2h7.59l-3.3,3.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l5-5a1,1,0,0,0,.21-.33A1,1,0,0,0,17.92,11.62Z"/></svg>
+                        </div>
+                        <span>Filtri</span>
+                    </div>
+                </header>
+
+                <div class="space-y-5">
+                    <filterInput
+                        name="admin"
+                        label="Filtra per ruolo"
+                        v-model="filters.admin"
+                        :values="adminVal"
+                    />
+
+                    <div>
+                        <label
+                            for="team"
+                            class="text-gray-500 mb-1 block text-sm">
+                                Filtra per team
+                        </label>
+                        <select
+                            v-model="filters.team"
+                            name="team"
+                            class="text-gray-400 bg-c-light-gray p-2 text-sm rounded-lg focus:outline-none border border-gray-700 focus:border-gray-600 transition w-full">
+                            <option value="">Filtra per team</option>
+                            <option
+                                v-for="(team, i) in teams"
+                                :key="i"
+                                :value="team.id">
+                                    {{ team.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </div>
 </template>
 
@@ -144,6 +191,7 @@ import tableHeader from '@/components/Layouts/tableHeader'
 import pageHeader from '@/components/Layouts/pageHeader'
 import baseInput from '@/components/Layouts/baseInput'
 import baseSelectInput from '@/components/Layouts/baseSelectInput'
+import filterInput from '@/components/Layouts/filterInput'
 import userAvatar from '@/components/Layouts/userAvatar'
 
 export default {
@@ -153,10 +201,12 @@ export default {
         tableHeader,
         baseInput,
         baseSelectInput,
+        filterInput,
         userAvatar
     },
     data() {
         return {
+            filtersMenu: false,
             selectedUsers: [],
             filters: {
                 search: '',
@@ -170,7 +220,7 @@ export default {
                 '',
                 'ID',
                 'avatar',
-                'name',
+                'nome',
                 'email',
                 'team',
                 'registrato il',
@@ -180,7 +230,7 @@ export default {
                 'ID',
                 'Nome',
                 'Email',
-                'Registrazione'
+                'Data'
             ],
             dirVal: ['asc','desc'],
             adminVal: ['Tutti','Admin', 'Utenti'],
@@ -189,12 +239,16 @@ export default {
     },
     mounted() {
         this.getUsers()
+        this.getAllTeams()
     },
     watch: {
         "filters.search": function() {
             this.getUsers()
         },
         "filters.admin": function() {
+            this.getUsers()
+        },
+        "filters.team": function() {
             this.getUsers()
         },
         "filters.field": function() {
@@ -217,12 +271,12 @@ export default {
         users() {
             return this.$store.getters['users/users']
         },
+        teams() {
+            return this.$store.getters['users/teams']
+        },
         success() {
             return this.$store.getters['users/success']
         },
-        teams() {
-            return []
-        }
     },
     methods: {
         getUsers(page = 1) {
@@ -230,6 +284,9 @@ export default {
                 filters: this.filters,
                 page: page
             })
+        },
+        getAllTeams() {
+            this.$store.dispatch('users/getAllTeams')
         },
         deleteUser(user, index) {
             if (confirm('Eliminare ' + user.name  +'?')) {
@@ -245,6 +302,9 @@ export default {
                 this.$store.dispatch('users/deleteUsers', {users})
                 this.selectedUsers = []
             }
+        },
+        toggleFiltersMenu() {
+            this.filtersMenu = ! this.filtersMenu
         }
     }
 

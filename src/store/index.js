@@ -6,6 +6,8 @@ Vue.use(Vuex)
 
 import auth from '@/store/modules/auth'
 import users from '@/store/modules/users'
+import teams from '@/store/modules/teams'
+import teamUser from '@/store/modules/teamUser'
 
 const data = createPersistedState({
 	paths: ['auth']
@@ -20,7 +22,9 @@ export default new Vuex.Store({
 	},
 	modules: {
 		auth,
-		users
+		users,
+		teams,
+		teamUser
 	},
 	plugins: [data]
 })

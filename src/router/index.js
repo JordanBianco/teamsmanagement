@@ -19,7 +19,7 @@ const routes = [
 			{
 				path: '',
 				name: 'Dashboard',
-				component: () => import(/* webpackChunkName: "index" */ '../views/Dashboard/Index.vue'),
+				component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard/Dashboard.vue'),
 				meta: { auth: true }
 			},
 			{
@@ -45,9 +45,36 @@ const routes = [
 			{
 				path: 'teams',
 				name: 'Teams',
-				component: () => import(/* webpackChunkName: "teams" */ '../views/Dashboard/Teams.vue'),
+				component: () => import(/* webpackChunkName: "teams" */ '../views/Dashboard/Teams/Index.vue'),
 				meta: { auth: true }
-			}
+			},
+			{
+				path: 'teams/create',
+				name: 'Teams.create',
+				component: () => import(/* webpackChunkName: "teamsCreate" */ '../views/Dashboard/Teams/Create.vue'),
+				meta: { auth: true }
+			},
+			{
+				path: 'teams/:slug/members',
+				name: 'Teams.members',
+				component: () => import(/* webpackChunkName: "teamsMembers" */ '../views/Dashboard/Teams/Members.vue'),
+				props: true,
+				meta: { auth: true }
+			},
+			{
+				path: 'team/:slug',
+				name: 'Teams.show',
+				component: () => import(/* webpackChunkName: "teamsShow" */ '../views/Dashboard/Teams/Show.vue'),
+				props: true,
+				meta: { auth: true }
+			},
+			{
+				path: 'teams/:slug/edit',
+				name: 'Teams.edit',
+				component: () => import(/* webpackChunkName: "teamsEdit" */ '../views/Dashboard/Teams/Edit.vue'),
+				props: true,
+				meta: { auth: true }
+			},
 		]
 	},
 ]

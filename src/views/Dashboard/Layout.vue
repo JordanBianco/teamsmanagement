@@ -6,7 +6,7 @@
 
         <transition name="fade">
             <router-view
-                class="min-h-screen w-full py-6 pl-64 pr-8 z-20"
+                class="w-full py-6 pl-64 pr-8 z-20"
                 :key="$route.path">
             </router-view>
         </transition>
