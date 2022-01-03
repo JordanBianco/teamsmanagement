@@ -1,8 +1,8 @@
 <template>
     <span
         :class="color()"
-        class="block px-2 py-0.5 text-sm rounded-full max-w-max">
-            {{ text }}
+        class="block px-2 py-0.5 text-xs rounded-full max-w-max">
+            {{ text[0].name }}
     </span>
 </template>
 
@@ -11,25 +11,17 @@ export default {
     name: 'Layouts.baseBadge',
     props: {
         text: {
-            type: String,
+            type: Array,
             required: true
         },
-        type: {
-            type: String,
-            default: "base"
-        }
     },
     methods: {
         color() {
-            switch (this.type) {
-                case 'base':
-                    return 'text-indigo-500 bg-indigo-100'
-                case 'success':
-                    return 'text-green-500 bg-green-100'
-                case 'error':
+            switch (this.text[0].name) {
+                case 'Leader':
                     return 'text-red-500 bg-red-100'
-                case 'info':
-                    return 'text-blue-500 bg-blue-100'
+                case 'Utente':
+                    return 'text-indigo-500 bg-indigo-100'
                 default:
                     return 'text-indigo-500 bg-indigo-100'
             }

@@ -2,6 +2,7 @@ import api from '@/apis/api'
 // import router from '@/router'
 
 export const getMembers = async ({commit}, {slug}) => {
+    commit('SET_MEMBERS', [])
     try {
         const res = await api.get('admin/teams/' + slug + '/members')
         if (res.status === 200) {
@@ -13,6 +14,7 @@ export const getMembers = async ({commit}, {slug}) => {
 }
 
 export const getNotMembers = async ({commit}, {slug}) => {
+    commit('SET_NOT_MEMBERS', [])
     try {
         const res = await api.get('admin/teams/' + slug + '/not-members')
         if (res.status === 200) {

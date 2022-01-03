@@ -37,14 +37,14 @@
                         v-model="team.color"
                         class="border border-gray-200 rounded-lg px-2 py-1.5 text-sm transition focus:outline-none focus:border-gray-400">
                 </div>
+
                 <div class="mb-8">
-                    <label for="description" class="text-sm text-gray-400 block">Description</label>
-                    <textarea
-                        name="description"
-                        rows="4"
+                    <label for="description" class="text-sm text-gray-400 block">Descrizione</label>
+                    <vue-editor
                         v-model="team.description"
-                        class="resize-none border border-gray-200 rounded-lg px-2 py-1.5 text-sm w-full transition focus:outline-none focus:border-gray-400"></textarea>
-                    <p class="text-gray-400 text-xs">Massimo 3000 caratteri</p>
+                        :editor-toolbar="customToolbar"
+                        placeholder="Inserisci una descrizione per questo team..."
+                    />
                 </div>
 
                 <baseButton
@@ -59,6 +59,7 @@
 import pageHeader from '@/components/Layouts/pageHeader'
 import errorMessage from '@/components/Layouts/errorMessage'
 import baseButton from '@/components/Layouts/baseButton'
+import { VueEditor } from "vue2-editor";
 
 export default {
     name: 'Dashboard.Users.Edit',
@@ -71,7 +72,8 @@ export default {
     components: {
         pageHeader,
         errorMessage,
-        baseButton
+        baseButton,
+        VueEditor
     },
     mounted() {
         this.getTeam()
@@ -84,6 +86,26 @@ export default {
             deep: true,
             immediate: true
         },
+    },
+    data() {
+        return {
+            customToolbar: [
+                [{ header: [false, 1, 2, 3, 4, 5, 6] }],
+                ["bold", "italic", "underline", "strike"], // toggled buttons
+                [
+                    { align: "" },
+                    { align: "center" },
+                    { align: "right" },
+                    { align: "justify" }
+                ],
+                ["blockquote", "code-block"],
+                [{ list: "ordered" }, { list: "bullet" }],
+                [{ indent: "-1" }, { indent: "+1" }],
+                [{ color: [] }, { background: [] }],
+                ["link"],
+                ["clean"] // remove formatting button
+            ]
+        }
     },
     computed: {
         team() {

@@ -7,6 +7,9 @@ import './assets/tailwind.css'
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 
+import Vue2Editor from "vue2-editor";
+Vue.use(Vue2Editor);
+
 import moment from 'moment'
 Vue.prototype.$moment = moment
 

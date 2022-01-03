@@ -25,9 +25,7 @@
                             </div>
                             <h2 class="text-lg text-gray-700">{{ team.name }}</h2>
                         </div>
-                        <div class="text-gray-500 text-sm">
-                            {{ team.description }}
-                        </div>
+                        <div v-html="team.description" class="text-gray-500 text-sm"></div>
                     </div>
 
                     <!-- Right / Azioni -->
@@ -52,7 +50,14 @@
             <div class="flex space-x-4">
                 <!-- Progetti -->
                 <section class="bg-white mb-4 p-4 rounded-lg shadow-custom w-2/3">
-                    <h3 class="text-base text-gray-700">Progetti</h3>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base text-gray-700">Progetti</h3> 
+                        <router-link
+                            :to="{ name: 'Projects'}"
+                            class="text-sm text-gray-400 hover:text-gray-500 transition">
+                                Gestisci
+                        </router-link>
+                    </div>
                 </section>
 
                 <!-- Gestione membri gruppo -->
@@ -72,6 +77,7 @@
                     <div v-if="team.users.length > 0">
                         <userCard
                             :users="team.users"
+                            :team="team"
                         />
                     </div>
                     <div v-else>
@@ -113,7 +119,9 @@ export default {
             this.$store.dispatch('teams/getTeam', {slug: this.slug})
         },
         deleteTeam(team) {
-
+            if (confirm('Eliminare ' + team.name  +'?')) {
+                this.$store.dispatch('teams/deleteTeam', {id: team.id})                
+            }
         }
     }
 

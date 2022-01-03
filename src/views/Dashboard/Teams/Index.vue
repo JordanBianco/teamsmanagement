@@ -64,22 +64,24 @@
                         <td class="px-4 py-2 text-xs text-gray-400 font-semibold">
                             #{{ team.id }}
                         </td>
-                        <td class="py-2 px-4 whitespace-nowrap">
+                        <td class="py-2 px-4">
                             <div class="flex items-baseline space-x-2">
                                 <div
                                     v-if="team.color"
-                                    class="w-2 h-2 rounded-full"
+                                    class="w-2 h-2 flex-none rounded-full"
                                     :style="'background:' + team.color">
                                 </div>
-                                <router-link :to="{ name: 'Teams.show', params: { slug: team.slug }}">
-                                    {{ team.name }}
+                                <router-link
+                                    class="whitespace-nowrap"
+                                    :to="{ name: 'Teams.show', params: { slug: team.slug }}">
+                                        {{ team.name }}
                                 </router-link>
                             </div>
                         </td>
                         <td class="py-2 px-4">
-                            {{ team.description }}
+                            <div v-html="truncate(team.description)"></div>
                         </td>
-                        <td class="py-2 px-4 whitespace-nowrap">
+                        <td class="py-2 px-4">
                             {{ team.users_count }}
                         </td>
                         <td class="py-2 px-4 whitespace-nowrap">{{ $moment(team.created_at).format('DD/MM/YYYY, HH:mm') }}</td>
@@ -230,8 +232,14 @@ export default {
                 this.$store.dispatch('teams/deleteTeams', {teams})
                 this.selectedTeams = []
             }
+        },
+        truncate(text) {
+            if (text && text.length > 100) {
+                return text.substring(0, 100) + '...'
+            } else {
+                return text
+            }
         }
-    }
-
+    },
 }
 </script>

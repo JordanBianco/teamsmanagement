@@ -90,29 +90,6 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="user.email != 'admin@admin.com'" class="mb-8">
-                    <label class="block text-sm text-gray-400">Concedere i privilegi di amministratore?</label>
-                    <div class="flex items-center space-x-4">
-                        <div class="flex items-center space-x-1">
-                            <input
-                                name="is_admin"
-                                type="radio"
-                                :value="true"
-                                v-model="user.is_admin"
-                                class="mt-0.5">
-                            <span class="text-sm text-gray-500">Sì</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <input
-                                name="is_admin"
-                                type="radio"
-                                :value="false"
-                                v-model="user.is_admin"
-                                class="mt-0.5">
-                            <span class="text-sm text-gray-500">No</span>
-                        </div>
-                    </div>
-                </div>
 
                 <baseButton
                     text="Salva"

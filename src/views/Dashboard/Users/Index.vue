@@ -64,15 +64,10 @@
                         <td class="pl-5 py-2">
                             <userAvatar :user="user" />
                         </td>
-                        <td class="py-2 px-4 whitespace-nowrap">
-                            <div class="relative">
-                                <router-link :to="{ name: 'Users.show', params: { slug: user.slug }}">
-                                    {{ user.name }}
-                                </router-link>
-                                <div
-                                    class="w-2 h-2 bg-indigo-400 rounded-full absolute -left-5 top-2"
-                                    v-if="user.is_admin"></div>
-                            </div>
+                        <td class="py-2 px-4">
+                            <router-link :to="{ name: 'Users.show', params: { slug: user.slug }}">
+                                {{ user.name }}
+                            </router-link>
                         </td>
                         <td class="py-2 px-4 whitespace-nowrap">{{ user.email }}</td>
                         <td class="py-2 px-4 whitespace-nowrap">
@@ -154,17 +149,8 @@
                 </header>
 
                 <div class="space-y-5">
-                    <filterInput
-                        name="admin"
-                        label="Filtra per ruolo"
-                        v-model="filters.admin"
-                        :values="adminVal"
-                    />
-
                     <div>
-                        <label
-                            for="team"
-                            class="text-gray-500 mb-1 block text-sm">
+                        <label for="team" class="text-gray-500 mb-1 block text-sm">
                                 Filtra per team
                         </label>
                         <select
@@ -180,6 +166,24 @@
                             </option>
                         </select>
                     </div>
+
+                    <div>
+                        <label for="role" class="text-gray-500 mb-1 block text-sm">
+                                Filtra per ruolo
+                        </label>
+                        <select
+                            v-model="filters.role"
+                            name="team"
+                            class="text-gray-400 bg-c-light-gray p-2 text-sm rounded-lg focus:outline-none border border-gray-700 focus:border-gray-600 transition w-full">
+                            <option value="">Filtra per ruolo</option>
+                            <option
+                                v-for="(role, i) in roles"
+                                :key="i"
+                                :value="role.id">
+                                    {{ role.name }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -191,7 +195,6 @@ import tableHeader from '@/components/Layouts/tableHeader'
 import pageHeader from '@/components/Layouts/pageHeader'
 import baseInput from '@/components/Layouts/baseInput'
 import baseSelectInput from '@/components/Layouts/baseSelectInput'
-import filterInput from '@/components/Layouts/filterInput'
 import userAvatar from '@/components/Layouts/userAvatar'
 
 export default {
@@ -201,7 +204,6 @@ export default {
         tableHeader,
         baseInput,
         baseSelectInput,
-        filterInput,
         userAvatar
     },
     data() {
@@ -214,7 +216,7 @@ export default {
                 field: 'ID',
                 dir: 'asc',
                 team: '',
-                admin: 'Tutti'
+                role: ''
             },
             columns: [
                 '',
@@ -232,20 +234,23 @@ export default {
                 'Email',
                 'Data'
             ],
-            dirVal: ['asc','desc'],
-            adminVal: ['Tutti','Admin', 'Utenti'],
+            dirVal: [
+                'asc',
+                'desc'
+            ],
             perPageVal: [10, 20, 30, 50]
         }
     },
     mounted() {
         this.getUsers()
         this.getAllTeams()
+        this.getRoles()
     },
     watch: {
         "filters.search": function() {
             this.getUsers()
         },
-        "filters.admin": function() {
+        "filters.role": function() {
             this.getUsers()
         },
         "filters.team": function() {
@@ -273,6 +278,9 @@ export default {
         },
         teams() {
             return this.$store.getters['users/teams']
+        },        
+        roles() {
+            return this.$store.getters['roles/roles']
         },
         success() {
             return this.$store.getters['users/success']
@@ -287,6 +295,9 @@ export default {
         },
         getAllTeams() {
             this.$store.dispatch('users/getAllTeams')
+        },
+        getRoles() {
+            this.$store.dispatch('roles/getRoles')
         },
         deleteUser(user, index) {
             if (confirm('Eliminare ' + user.name  +'?')) {

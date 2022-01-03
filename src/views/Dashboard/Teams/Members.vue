@@ -18,19 +18,21 @@
 
             <section class="border-b border-gray-200 mb-8 text-sm flex items-center">
                 <div
-                    @click="view = 'members'"
-                    :class="[ view == 'members' ? 'border-b text-gray-600 border-indigo-400' : 'text-gray-400' ]"
+                    @click="view = 'remove'"
+                    :class="[ view == 'remove' ? 'border-b text-gray-600 border-indigo-400' : 'text-gray-400' ]"
                     class="p-4 pl-0 max-w-max cursor-pointer transition">
-                        Membri del gruppo
+                        Rimuovi utenti
                 </div>
                 <div
-                    @click="view = 'notMembers'"
-                    :class="[ view == 'notMembers' ? 'border-b text-gray-600 border-indigo-400' : 'text-gray-400' ]"
+                    @click="view = 'add'"
+                    :class="[ view == 'add' ? 'border-b text-gray-600 border-indigo-400' : 'text-gray-400' ]"
                     class="p-4 max-w-max cursor-pointer transition">
-                        Utenti
+                        Aggiungi utenti
                 </div>
             </section>
-            <div v-if="view == 'members'">
+
+            <!-- Rimuovi Membri dal gruppo -->
+            <div v-if="view == 'remove'">
                 <div
                     v-for="user in members"
                     :key="user.id"
@@ -42,20 +44,37 @@
                                 :classes="'w-8 h-8 rounded-full flex-none'"
                             />
                             <div class="text-sm ">
-                                <span class="text-gray-600 block">{{ user.name }}</span>
+                                <router-link
+                                    class="block"
+                                    :to="{ name: 'Users.show', params: { slug: user.slug }}">
+                                        <span class="text-gray-600">{{ user.name }}</span>
+                                </router-link>
                                 <span class="text-gray-400 block">{{ user.email }}</span>
                             </div>
                         </div>
 
-                        <div
-                            title="Rimuovi"
-                            @click="removeMember(user, team)"
-                            class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:bg-red-100 hover:text-red-500 transition cursor-pointer">
-                                <svg class="w-4.5 h-4.5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19,11H5a1,1,0,0,0,0,2H19a1,1,0,0,0,0-2Z"/></svg>
+                        <!-- Right -->
+                        <div class="flex items-center space-x-2">
+                            <baseBadge
+                                :text="role(user)"
+                            />
+
+                            <changeRole
+                                :user="user"
+                                :team="team"
+                            />
+
+                            <div
+                                title="Rimuovi"
+                                @click="removeMember(user, team)"
+                                class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:bg-red-100 hover:text-red-500 transition cursor-pointer">
+                                    <svg class="w-4.5 h-4.5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19,11H5a1,1,0,0,0,0,2H19a1,1,0,0,0,0-2Z"/></svg>
+                            </div>
                         </div>
                 </div>
             </div>
-            <div v-if="view == 'notMembers'">
+            <!-- Aggiungi Membri al gruppo -->
+            <div v-if="view == 'add'">
                 <div
                     v-for="user in notMembers"
                     :key="user.id"
@@ -80,7 +99,6 @@
                 </div>
             </div>
 
-
         </div>
     </div>
 </template>
@@ -88,6 +106,8 @@
 <script>
 import pageHeader from '@/components/Layouts/pageHeader'
 import userAvatar from '@/components/Layouts/userAvatar'
+import changeRole from '@/components/changeRole'
+import baseBadge from '@/components/Layouts/baseBadge'
 
 export default {
     name: 'Dashboard.Teams.Members',
@@ -99,7 +119,9 @@ export default {
     },
     components: {
         pageHeader,
-        userAvatar
+        userAvatar,
+        changeRole,
+        baseBadge
     },
     mounted() {
         this.getTeam()
@@ -108,7 +130,7 @@ export default {
     },
     data() {
         return {
-            view: 'members'
+            view: 'remove',
         }
     },
     computed: {
@@ -143,7 +165,13 @@ export default {
                 user: user,
                 team: team,
             })
+        },
+        role(user) {
+            return user.roles.filter(role => {
+                return role.pivot.team_id == this.team.id
+            })
         }
+        
     }
 }
 </script>

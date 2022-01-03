@@ -24,7 +24,7 @@
 
 <script>
 export default {
-    name: 'Layouts.filterInput',
+    name: 'Layouts.baseSelectInput',
     props: {
         name: {
             type: String,

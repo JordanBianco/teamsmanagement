@@ -24,12 +24,6 @@
                             <div>
                                 <h2 class="text-lg text-gray-700 -mb-1">{{ user.name }}</h2>
                                 <span class="text-indigo-400">{{ user.email }}</span>
-                                <div v-if="user.is_admin" class="mt-2">
-                                    <baseBadge 
-                                        text="Admin"
-                                        type="base"
-                                    />
-                                </div>
                             </div>
 
                             <div class="flex items-center space-x-1 mt-4">
@@ -87,20 +81,9 @@
                     <h2 class="text-xl text-gray-700 mb-4">
                         Teams
                     </h2>
-                    <div
-                        v-for="team in user.teams"
-                        :key="team.id"
-                        class="bg-white mb-4 p-4 rounded-lg shadow-custom"
-                        :class="{ 'flex items-baseline space-x-2' : user.teams }">
-                            <div
-                                v-if="team.color"
-                                class="w-2 h-2 rounded-full"
-                                :style="'background:' + team.color">
-                            </div>
-                            <router-link :to="{ name: 'Teams.show', params: {slug: team.slug }}">
-                                {{ team.name }}
-                            </router-link>
-                    </div>
+                    <userTeamInfo
+                        :user="user"
+                    />
                 </section>
             </div>
 
@@ -111,7 +94,7 @@
 <script>
 import pageHeader from '@/components/Layouts/pageHeader'
 import userAvatar from '@/components/Layouts/userAvatar'
-import baseBadge from '@/components/Layouts/baseBadge'
+import userTeamInfo from '@/components/Layouts/userTeamInfo'
 
 export default {
     name: 'Dashboard.Users.Show',
@@ -124,7 +107,7 @@ export default {
     components: {
         pageHeader,
         userAvatar,
-        baseBadge
+        userTeamInfo
     },
     mounted() {
         this.getUser()

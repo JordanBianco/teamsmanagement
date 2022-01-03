@@ -31,17 +31,18 @@
                 class="mb-4 max-w-max"
             />
 
-            <baseTextarea
-                label="Descrizione"
-                name="description"
-                :rows="4"
-                v-model="team.description"
-                class="mb-4"
-            />
+            <div class="mb-8">
+                <label for="description" class="text-sm text-gray-400 block">Descrizione</label>
+                <vue-editor
+                    v-model="team.description"
+                    :editor-toolbar="customToolbar"
+                    placeholder="Inserisci una descrizione per questo team..."
+                />
+            </div>
 
             <baseButton
                 text="Salva"
-            />            
+            />
         </form>
     </div>
 </template>
@@ -49,23 +50,20 @@
 <script>
 import pageHeader from '@/components/Layouts/pageHeader'
 import baseInput from '@/components/Layouts/baseInput'
-import baseTextarea from '@/components/Layouts/baseTextarea'
 import baseSelectInput from '@/components/Layouts/baseSelectInput'
 import baseButton from '@/components/Layouts/baseButton'
 import errorMessage from '@/components/Layouts/errorMessage'
+import { VueEditor } from "vue2-editor";
 
 export default {
     name: 'Dashboard.Teams.create',
     components: {
         pageHeader,
         baseInput,
-        baseTextarea,
         baseSelectInput,
         baseButton,
-        errorMessage
-    },
-    mounted() {
-        this.getAllUsers()
+        errorMessage,
+        VueEditor
     },
     watch: {
         "$route" : {
@@ -80,9 +78,25 @@ export default {
         return {
             team: {
                 name: '',
-                description: '',
-                color: ''
-            }
+                color: '',
+                description: ''
+            },
+            customToolbar: [
+                [{ header: [false, 1, 2, 3, 4, 5, 6] }],
+                ["bold", "italic", "underline", "strike"], // toggled buttons
+                [
+                    { align: "" },
+                    { align: "center" },
+                    { align: "right" },
+                    { align: "justify" }
+                ],
+                ["blockquote", "code-block"],
+                [{ list: "ordered" }, { list: "bullet" }],
+                [{ indent: "-1" }, { indent: "+1" }],
+                [{ color: [] }, { background: [] }],
+                ["link"],
+                ["clean"] // remove formatting button
+            ]
         }
     },
     computed: {

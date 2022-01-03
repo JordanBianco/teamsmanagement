@@ -75,6 +75,26 @@ const routes = [
 				props: true,
 				meta: { auth: true }
 			},
+			{
+				path: 'teams/:slug/projects',
+				name: 'Projects',
+				component: () => import(/* webpackChunkName: "projects" */ '../views/Dashboard/Teams/Projects/Index.vue'),
+				props: true,
+				meta: { auth: true }
+			},
+			{
+				path: 'teams/:tslug/projects/:pslug',
+				name: 'Projects.show',
+				component: () => import(/* webpackChunkName: "projects" */ '../views/Dashboard/Teams/Projects/Show.vue'),
+				props: true,
+				meta: { auth: true }
+			},
+			{
+				path: 'roles',
+				name: 'Roles',
+				component: () => import(/* webpackChunkName: "roles" */ '../views/Dashboard/Roles/index.vue'),
+				meta: { auth: true }
+			},
 		]
 	},
 ]

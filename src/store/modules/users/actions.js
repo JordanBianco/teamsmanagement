@@ -5,7 +5,7 @@ export const getUsers = async ({commit}, {filters, page}) => {
     try {
         const res = await api.get(
             'admin/users?search=' + filters.search
-            + '&admin=' + filters.admin
+            + '&role=' + filters.role
             + '&team=' + filters.team
             + '&field=' + filters.field
             + '&dir=' + filters.dir
@@ -52,7 +52,6 @@ export const updateUser = async ({commit}, {user}) => {
             birth_date: user.birth_date,
             phone_number: user.phone_number,
             gender: user.gender,
-            is_admin: user.is_admin
         })
         if (res.status === 200) {
             router.push({ name: 'Users.edit', params: {slug: res.data.data.slug} }).catch(() => {})

@@ -5,10 +5,12 @@
             Nella lista degli utenti ho bisogno solo dell'avatar
          -->
         <span v-if="name" class="text-gray-500 text-sm">{{ name }}</span>
-        <img
-            :src="avatar"
-            alt="user_avatar"
-            :class="classes">
+        <div class="flex-none">
+            <img
+                :src="avatar"
+                alt="user_avatar"
+                :class="classes">
+        </div>
     </div>
 </template>
 
