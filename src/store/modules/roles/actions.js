@@ -18,7 +18,7 @@ export const updateRole = async ({dispatch}, {team, user, role_id}) => {
             role_id: role_id,
         })
         if (res.status === 200) {
-            dispatch('teamUser/getMembers', { slug: team.slug }, {root:true})
+            dispatch('teams/getTeam', { slug: team.slug }, {root:true})
         }
     } catch (error) {
         console.log(error)

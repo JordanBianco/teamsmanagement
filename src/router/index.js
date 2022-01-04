@@ -22,6 +22,9 @@ const routes = [
 				component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard/Dashboard.vue'),
 				meta: { auth: true }
 			},
+			/***************************************
+			 ** Utenti
+			 **************************************/
 			{
 				path: 'utenti',
 				name: 'Users',
@@ -42,6 +45,9 @@ const routes = [
 				props: true,
 				meta: { auth: true }
 			},
+			/***************************************
+			 ** Teams
+			 **************************************/
 			{
 				path: 'teams',
 				name: 'Teams',
@@ -52,13 +58,6 @@ const routes = [
 				path: 'teams/create',
 				name: 'Teams.create',
 				component: () => import(/* webpackChunkName: "teamsCreate" */ '../views/Dashboard/Teams/Create.vue'),
-				meta: { auth: true }
-			},
-			{
-				path: 'teams/:slug/members',
-				name: 'Teams.members',
-				component: () => import(/* webpackChunkName: "teamsMembers" */ '../views/Dashboard/Teams/Members.vue'),
-				props: true,
 				meta: { auth: true }
 			},
 			{
@@ -76,6 +75,23 @@ const routes = [
 				meta: { auth: true }
 			},
 			{
+				path: 'teams/:slug/members',
+				name: 'Teams.members',
+				component: () => import(/* webpackChunkName: "teamsMembers" */ '../views/Dashboard/Teams/Members.vue'),
+				props: true,
+				meta: { auth: true }
+			},
+			{
+				path: 'teams/:slug/roles',
+				name: 'Teams.roles',
+				component: () => import(/* webpackChunkName: "teamsRoles" */ '../views/Dashboard/Teams/Roles.vue'),
+				props: true,
+				meta: { auth: true }
+			},
+			/***************************************
+			 ** Teams / Progetti
+			 **************************************/
+			{
 				path: 'teams/:slug/projects',
 				name: 'Projects',
 				component: () => import(/* webpackChunkName: "projects" */ '../views/Dashboard/Teams/Projects/Index.vue'),
@@ -89,6 +105,9 @@ const routes = [
 				props: true,
 				meta: { auth: true }
 			},
+			/***************************************
+			 ** Ruoli
+			 **************************************/
 			{
 				path: 'roles',
 				name: 'Roles',

@@ -43,7 +43,7 @@ export const storeTeam = async ({commit}, {team}) => {
         if (error.response.status === 422) {    
             commit('SET_ERRORS', error.response.data.errors)
         }
-    }   
+    }
 }
 
 export const updateTeam = async ({commit}, {team}) => {
@@ -60,14 +60,14 @@ export const updateTeam = async ({commit}, {team}) => {
         if (error.response.status === 422) {    
             commit('SET_ERRORS', error.response.data.errors)
         }
-    }   
+    }
 }
 
 export const deleteTeam = async ({commit}, {id, index}) => {
     try {
         const res = await api.delete('admin/teams/' + id + '/delete')
         if (res.status === 200) {
-            if (index) {
+            if (index != undefined) {
                 commit('DELETE_TEAM', index)
             }
             else {
@@ -76,7 +76,7 @@ export const deleteTeam = async ({commit}, {id, index}) => {
         }
     } catch (error) {
         console.log(error)
-    }   
+    }
 }
 
 export const deleteTeams = async ({commit}, {teams}) => {

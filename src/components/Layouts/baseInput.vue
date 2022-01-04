@@ -3,7 +3,7 @@
         <label
             v-if="label"
             :for="name"
-            class="text-sm text-gray-400">
+            class="text-xs text-gray-400">
                 {{ label }}
         </label>
         <input

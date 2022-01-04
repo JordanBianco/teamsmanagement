@@ -67,16 +67,17 @@ export const deleteUser = async ({commit}, {id, index}) => {
     try {
         const res = await api.delete('admin/users/' + id + '/delete')
         if (res.status === 200) {
-            if (index) {
+            if (index != undefined) {
                 commit('DELETE_USER', index)
             }
             else {
+                console.log('not ok')
                 router.push({ name: 'Users' })
             }
         }
     } catch (error) {
         console.log(error)
-    }   
+    }
 }
 
 export const deleteUsers = async ({commit}, {users}) => {

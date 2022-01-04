@@ -10,7 +10,7 @@
                     :classes="'w-8 h-8 rounded-full'"
                 />
                 <div class="text-sm w-full">
-                    <div class="flex items-center space-x-2">
+                    <div class="flex justify-between items-center space-x-2">
                         <span class="text-gray-600 block">{{ user.name }}</span>
                         <baseBadge
                             :text="role(user)"

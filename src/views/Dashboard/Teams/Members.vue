@@ -2,7 +2,7 @@
     <div>
         <div v-if="team">
             <pageHeader 
-                title="Gestisci membri"
+                :title="'Membri ' + team.name"
                 :routes="[
                     {
                         to: { name: 'Teams'},
@@ -30,7 +30,6 @@
                         Aggiungi utenti
                 </div>
             </section>
-
             <!-- Rimuovi Membri dal gruppo -->
             <div v-if="view == 'remove'">
                 <div
@@ -54,22 +53,10 @@
                         </div>
 
                         <!-- Right -->
-                        <div class="flex items-center space-x-2">
-                            <baseBadge
-                                :text="role(user)"
-                            />
-
-                            <changeRole
-                                :user="user"
-                                :team="team"
-                            />
-
-                            <div
-                                title="Rimuovi"
-                                @click="removeMember(user, team)"
-                                class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:bg-red-100 hover:text-red-500 transition cursor-pointer">
-                                    <svg class="w-4.5 h-4.5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19,11H5a1,1,0,0,0,0,2H19a1,1,0,0,0,0-2Z"/></svg>
-                            </div>
+                        <div
+                            @click="removeMember(user, team)"
+                            class="bg-gray-200 rounded-lg px-2 text-gray-400 hover:bg-red-100 hover:text-red-500 transition cursor-pointer text-sm">
+                                <span>Rimuovi</span>
                         </div>
                 </div>
             </div>
@@ -91,10 +78,9 @@
                         </div>
 
                         <div
-                            title="Aggiungi"
                             @click="addMember(user, team)"
-                            class="bg-gray-200 rounded-lg p-0.5 text-gray-400 hover:bg-green-100 hover:text-green-500 transition cursor-pointer">
-                                <svg class="w-4.5 h-4.5 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"/></svg>
+                            class="bg-gray-200 rounded-lg px-2 text-gray-400 hover:bg-green-100 hover:text-green-500 transition cursor-pointer text-sm">
+                                <span>Aggiungi</span>
                         </div>
                 </div>
             </div>
@@ -106,8 +92,6 @@
 <script>
 import pageHeader from '@/components/Layouts/pageHeader'
 import userAvatar from '@/components/Layouts/userAvatar'
-import changeRole from '@/components/changeRole'
-import baseBadge from '@/components/Layouts/baseBadge'
 
 export default {
     name: 'Dashboard.Teams.Members',
@@ -120,8 +104,6 @@ export default {
     components: {
         pageHeader,
         userAvatar,
-        changeRole,
-        baseBadge
     },
     mounted() {
         this.getTeam()
@@ -165,13 +147,7 @@ export default {
                 user: user,
                 team: team,
             })
-        },
-        role(user) {
-            return user.roles.filter(role => {
-                return role.pivot.team_id == this.team.id
-            })
         }
-        
     }
 }
 </script>
