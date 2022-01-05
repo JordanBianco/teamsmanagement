@@ -4,13 +4,13 @@
             Name è facoltativo, perchè nel Header passo il nome dell'utente loggato
             Nella lista degli utenti ho bisogno solo dell'avatar
          -->
-        <span v-if="name" class="text-gray-500 text-sm">{{ name }}</span>
         <div class="flex-none">
             <img
                 :src="avatar"
                 alt="user_avatar"
                 :class="classes">
         </div>
+        <span v-if="name" class="text-gray-500 text-sm">{{ name }}</span>
     </div>
 </template>
 

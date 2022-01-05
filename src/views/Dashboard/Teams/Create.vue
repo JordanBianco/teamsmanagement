@@ -1,7 +1,7 @@
 <template>
     <div>
         <pageHeader 
-            title="Team"
+            title="Nuovo Team"
             :routes="[
                 {
                     to: { name: 'Teams'},

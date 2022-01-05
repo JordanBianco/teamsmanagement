@@ -51,13 +51,18 @@
                 <!-- Progetti -->
                 <section class="bg-white mb-4 p-4 rounded-lg shadow-custom w-2/3">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-base text-gray-700">Progetti</h3> 
+                        <h3 class="text-base text-gray-700">
+                            Progetti
+                            <span class="text-sm text-gray-400">{{team.projects.length }}</span>    
+                        </h3>
                         <router-link
                             :to="{ name: 'Projects'}"
                             class="text-sm text-gray-400 hover:text-gray-500 transition">
                                 Gestisci
                         </router-link>
                     </div>
+
+                    {{ team.projects }}
                 </section>
 
                 <!-- Gestione membri gruppo -->

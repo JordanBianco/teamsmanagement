@@ -2,7 +2,7 @@
     <button
         :type="type"
         :class="{ 'flex justify-center items-center space-x-4' : svg }"
-        class="bg-gradient-to-r from-indigo-400 to-purple-500 transition text-white rounded px-3 py-1.5 text-sm relative"
+        class="bg-gradient-to-r from-indigo-400 to-purple-400 transition text-white rounded px-3 py-1.5 text-sm relative"
     >
         <span>{{ text }}</span>
         <div

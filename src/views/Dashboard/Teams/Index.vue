@@ -1,8 +1,19 @@
 <template>
     <div>
-        <pageHeader 
-            title="Gestione Teams"
-        />
+        <div class="flex justify-between">
+            <pageHeader 
+                title="Gestione Teams"
+            />
+
+            <div>
+                <router-link
+                    :to="{ name: 'Teams.create' }"
+                    title="Nuovo team"
+                    class="bg-gradient-to-r from-indigo-400 to-purple-400 transition shadow-custom rounded-full p-1.5 max-w-max block">
+                        <svg class="w-4 h-4 flex-none text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"/></svg>
+                </router-link>
+            </div>
+        </div>
         
         <section class="bg-white mb-4 p-4 flex justify-between rounded-lg shadow-custom">
             <div class="w-1/3">
@@ -30,16 +41,10 @@
                     :values="dirVal"
                 />
                 <baseSelectInput
-                    name="search"
+                    name="perPage"
                     v-model="filters.perPage"
                     :values="perPageVal"
                 />
-                <router-link
-                    :to="{ name: 'Teams.create' }"
-                    title="Nuovo team"
-                    class="text-gray-50 bg-indigo-400 hover:bg-indigo-500 rounded-full p-1.5">
-                        <svg class="w-4 h-4 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"/></svg>
-                </router-link>
             </div>
         </section>
 

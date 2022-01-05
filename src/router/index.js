@@ -91,6 +91,13 @@ const routes = [
 			/***************************************
 			 ** Teams / Progetti
 			 **************************************/
+			 {
+				path: 'teams/:slug/projects/create',
+				name: 'Projects.create',
+				component: () => import(/* webpackChunkName: "projectsCreate" */ '../views/Dashboard/Teams/Projects/Create.vue'),
+				props: true,
+				meta: { auth: true }
+			},
 			{
 				path: 'teams/:slug/projects',
 				name: 'Projects',
@@ -101,7 +108,14 @@ const routes = [
 			{
 				path: 'teams/:tslug/projects/:pslug',
 				name: 'Projects.show',
-				component: () => import(/* webpackChunkName: "projects" */ '../views/Dashboard/Teams/Projects/Show.vue'),
+				component: () => import(/* webpackChunkName: "projectsShow" */ '../views/Dashboard/Teams/Projects/Show.vue'),
+				props: true,
+				meta: { auth: true }
+			},
+			{
+				path: 'teams/:tslug/projects/:pslug/edit',
+				name: 'Projects.edit',
+				component: () => import(/* webpackChunkName: "projectsEdit" */ '../views/Dashboard/Teams/Projects/Edit.vue'),
 				props: true,
 				meta: { auth: true }
 			},

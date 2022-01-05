@@ -30,7 +30,7 @@
                     :values="dirVal"
                 />
                 <baseSelectInput
-                    name="search"
+                    name="perPage"
                     v-model="filters.perPage"
                     :values="perPageVal"
                 />

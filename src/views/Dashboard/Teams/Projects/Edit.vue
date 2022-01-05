@@ -1,22 +1,33 @@
 <template>
     <div>
-        <div v-if="team">
+        <div v-if="project">
             <pageHeader 
-                title="Modifica Team"
+                title="Modifica progetto"
                 :routes="[
                     {
                         to: { name: 'Teams'},
-                        text: 'Gestione Teams'
+                        text: 'Gestisci teams'
                     },
                     {
-                        to: { name: 'Teams.show', params: { slug: team.slug }},
-                        text: team.name 
+                        to: { name: 'Teams.show', params: { slug: project.team.slug }},
+                        text: project.team.name
+                    },
+                    {
+                        to: { name: 'Projects', params: { slug: project.team.slug }},
+                        text: 'Progetti'
+                    },
+                    {
+                        to: { name: 'Projects.show', params: { 
+                            tslug: project.team.slug, 
+                            pslug: project.slug, 
+                        }},
+                        text: project.name
                     },
                 ]"
                 resource="modifica"
             />
 
-            <form @submit.prevent="updateTeam" class="bg-white mb-4 p-4 rounded-lg shadow-custom">
+            <form @submit.prevent="updateProject" class="bg-white mb-4 p-4 rounded-lg shadow-custom">
                 <errorMessage
                     :errors="errors"
                 />
@@ -26,32 +37,33 @@
                     <input
                         name="name"
                         type="text"
-                        v-model="team.name"
+                        v-model="project.name"
                         class="border border-gray-200 rounded-lg px-2 py-1.5 text-sm w-full transition focus:outline-none focus:border-gray-400">
-                </div>
-                
-                <div class="mb-4">
-                    <label for="color" class="text-sm text-gray-400 block">Color</label>
-                    <input
-                        name="color"
-                        type="color"
-                        v-model="team.color"
-                        class="border border-gray-200 rounded-lg px-2 py-1.5 text-sm transition focus:outline-none focus:border-gray-400">
                 </div>
 
                 <div class="mb-8">
                     <label for="description" class="text-sm text-gray-400 block">Descrizione</label>
                     <vue-editor
-                        v-model="team.description"
+                        v-model="project.description"
                         :editor-toolbar="customToolbar"
                         placeholder="Inserisci una descrizione per questo team..."
                     />
+                </div>
+
+                <div class="mb-4">
+                    <label for="end_date">Data scadenza</label>
+                    <input
+                        type="date"
+                        name="end_date"
+                        v-model="project.end_date"
+                        class="border border-gray-200 rounded-lg px-2 py-1.5 text-sm w-full transition focus:outline-none focus:border-gray-400">
                 </div>
 
                 <baseButton
                     text="Salva"
                 />
             </form>
+
         </div>
     </div>
 </template>
@@ -63,9 +75,13 @@ import baseButton from '@/components/Layouts/baseButton'
 import { VueEditor } from "vue2-editor";
 
 export default {
-    name: 'Dashboard.Users.Edit',
+    name: 'Dashboard.Teams.Project.Edit',
     props: {
-        slug: {
+        tslug: { // slug of the team
+            type: String,
+            required: true
+        },
+        pslug: { // slug of the project
             type: String,
             required: true
         }
@@ -77,7 +93,7 @@ export default {
         VueEditor
     },
     mounted() {
-        this.getTeam()
+        this.getProject()
     },
     watch: {
         "$route": {
@@ -109,24 +125,26 @@ export default {
         }
     },
     computed: {
-        team() {
-            return this.$store.getters['teams/team']
+        project() {
+            return this.$store.getters['projects/project']
         },
         errors() {
-            return this.$store.getters['teams/errors']
+            return this.$store.getters['projects/errors']
         }
     },
     methods: {
-        getTeam() {
-            this.$store.dispatch('teams/getTeam', {slug: this.slug})
+        getProject() {
+            this.$store.dispatch('projects/getProject', {
+                tslug: this.tslug,
+                pslug: this.pslug,
+            })
         },
-        updateTeam() {
-            this.$store.dispatch('teams/updateTeam', {team: this.team})
+        updateProject() {
+            this.$store.dispatch('projects/updateProject', {project: this.project})
         },
         clearErrors() {
-            this.$store.dispatch('teams/clearErrors')            
+            this.$store.dispatch('projects/clearErrors')            
         }
     }
-
 }
 </script>
