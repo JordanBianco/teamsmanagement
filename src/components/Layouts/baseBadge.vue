@@ -1,7 +1,7 @@
 <template>
     <span
         :class="color()"
-        class="block px-2 py-0.5 text-xs rounded-full max-w-max">
+        class="block px-2 py-0.5 text-xs rounded-lg max-w-max">
             {{ text[0].name }}
     </span>
 </template>

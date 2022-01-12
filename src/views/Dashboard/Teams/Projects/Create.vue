@@ -9,12 +9,8 @@
                         text: 'Gestisci teams'
                     },
                     {
-                        to: { name: 'Teams.show'},
+                        to: { name: 'Teams.show', params: {slug: team.slug }},
                         text: team.name
-                    },
-                    {
-                        to: { name: 'Projects'},
-                        text: 'Progetti'
                     },
                 ]"
                 resource="crea nuovo progetto"

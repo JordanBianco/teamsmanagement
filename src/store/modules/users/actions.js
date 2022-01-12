@@ -55,6 +55,10 @@ export const updateUser = async ({commit}, {user}) => {
         })
         if (res.status === 200) {
             router.push({ name: 'Users.edit', params: {slug: res.data.data.slug} }).catch(() => {})
+
+            commit('notifications/ADD_NOTIFICATION', {
+                message: 'Utente aggiornato'
+            }, { root:true });
         }
     } catch (error) {
         if (error.response.status === 422) {    
@@ -69,6 +73,10 @@ export const deleteUser = async ({commit}, {id, index}) => {
         if (res.status === 200) {
             if (index != undefined) {
                 commit('DELETE_USER', index)
+
+                commit('notifications/ADD_NOTIFICATION', {
+                    message: 'Utente eliminato'
+                }, { root:true });
             }
             else {
                 console.log('not ok')
@@ -81,10 +89,18 @@ export const deleteUser = async ({commit}, {id, index}) => {
 }
 
 export const deleteUsers = async ({commit}, {users}) => {
+    let ids = []
+    users.filter(user => { ids.push(user.id) })
     try {
-        const res = await api.delete('admin/users/delete', { params: {ids: users }})
+        const res = await api.delete('admin/users/delete', { params: {
+            ids: ids
+        }})
         if (res.status === 200) {
-            commit('SET_SUCCESS_STATUS', true)
+            commit('DELETE_USERS', users)
+
+            commit('notifications/ADD_NOTIFICATION', {
+                    message: 'Utenti eliminati'
+                }, { root:true });
         }
     } catch (error) {
         console.log(error)
@@ -93,8 +109,4 @@ export const deleteUsers = async ({commit}, {users}) => {
 
 export const clearErrors = ({commit}) => {
     commit('SET_ERRORS', [])
-}
-
-export const setSuccessStatus = ({commit}, {value}) => {
-    commit('SET_SUCCESS_STATUS', value)
 }

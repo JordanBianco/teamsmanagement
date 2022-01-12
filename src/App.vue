@@ -1,12 +1,18 @@
 <template>
 	<div>
 		<router-view class="min-h-screen" />
+
+		<notificationList />
 	</div>
 </template>
 
 <script>
+import notificationList from '@/components/Notifications/NotificationList'
+
 export default {
-	// 
+	components: {
+		notificationList
+	}
 }
 </script>
 

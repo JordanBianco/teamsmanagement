@@ -8,8 +8,8 @@
                 <option value="">Cambia ruolo</option>
 
                 <option
-                    v-for="role in roles"
-                    :key="role.id"
+                    v-for="(role, index) in roles"
+                    :key="index"
                     :value="role.id">{{ role.name }}</option>
         </select>
     </div>
@@ -52,6 +52,11 @@ export default {
                 role_id: this.role_id,
             })
         },
+        role() {
+            return this.user.roles.find(role => {
+                return role.pivot.team_id == this.team.id
+            })
+        }
     }
 }
 </script>

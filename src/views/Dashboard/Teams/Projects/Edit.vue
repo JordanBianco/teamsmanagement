@@ -13,10 +13,6 @@
                         text: project.team.name
                     },
                     {
-                        to: { name: 'Projects', params: { slug: project.team.slug }},
-                        text: 'Progetti'
-                    },
-                    {
                         to: { name: 'Projects.show', params: { 
                             tslug: project.team.slug, 
                             pslug: project.slug, 

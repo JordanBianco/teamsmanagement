@@ -38,10 +38,6 @@
 
                     <!-- Right -->
                     <div class="flex items-center space-x-2">
-                        <baseBadge
-                            :text="role(user)"
-                        />
-
                         <changeRole
                             :user="user"
                             :team="team"
@@ -57,7 +53,6 @@
 import pageHeader from '@/components/Layouts/pageHeader'
 import userAvatar from '@/components/Layouts/userAvatar'
 import changeRole from '@/components/changeRole'
-import baseBadge from '@/components/Layouts/baseBadge'
 
 export default {
     name: 'Dashboard.Teams.Roles',
@@ -70,7 +65,6 @@ export default {
     components: {
         pageHeader,
         userAvatar,
-        baseBadge,
         changeRole
     },
     mounted() {
@@ -85,11 +79,6 @@ export default {
         getTeam() {
             this.$store.dispatch('teams/getTeam', { slug: this.slug })
         },
-        role(user) {
-            return user.roles.filter(role => {
-                return role.pivot.team_id == this.team.id
-            })
-        }
     }
 }
 </script>

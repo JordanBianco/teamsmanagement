@@ -1,13 +1,10 @@
 import api from '@/apis/api'
 import router from '@/router'
 
-export const getProjects = async ({commit}, {slug, filters}) => {
+export const getProjects = async ({commit}, {slug}) => {
+    commit('SET_PROJECTS', [])
     try {
-        const res = await api.get(
-            'admin/teams/' + slug + '/projects?search=' + filters.search
-            + '&field=' + filters.field
-            + '&dir=' + filters.dir
-        )
+        const res = await api.get('admin/teams/' + slug + '/projects')
         if (res.status === 200) {
             commit('SET_PROJECTS', res.data.data)
         }
@@ -63,6 +60,10 @@ export const updateProject = async ({commit}, {project}) => {
                 pslug: res.data.data.slug
             }})
             .catch(() => {})
+
+            commit('notifications/ADD_NOTIFICATION', {
+                message: 'Progetto aggiornato'
+            }, { root:true });
         }
     } catch (error) {
         if (error.response.status === 422) {    
@@ -77,7 +78,31 @@ export const deleteProject = async ({commit}, {team, project, index}) => {
         if (res.status === 200) {
             if (index != undefined) {
                 commit('DELETE_PROJECT', index)
+
+                commit('notifications/ADD_NOTIFICATION', {
+                    message: 'Progetto eliminato'
+                }, { root:true });
             }
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const deleteProjects = async ({commit}, {team, projects}) => {
+    let ids = []
+    projects.filter(project => { ids.push(project.id) })
+
+    try {
+        const res = await api.delete('admin/teams/' + team.slug + '/projects/delete', { params: {
+            ids: ids
+        }})
+        if (res.status === 200) {
+            commit('DELETE_PROJECTS', projects)
+
+            commit('notifications/ADD_NOTIFICATION', {
+                message: 'Progetti eliminati'
+            }, { root:true });
         }
     } catch (error) {
         console.log(error)

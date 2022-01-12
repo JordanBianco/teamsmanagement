@@ -77,7 +77,7 @@ const routes = [
 			{
 				path: 'teams/:slug/members',
 				name: 'Teams.members',
-				component: () => import(/* webpackChunkName: "teamsMembers" */ '../views/Dashboard/Teams/Members.vue'),
+				component: () => import(/* webpackChunkName: "teamsAddMembers" */ '../views/Dashboard/Teams/AddMembers.vue'),
 				props: true,
 				meta: { auth: true }
 			},
@@ -90,18 +90,11 @@ const routes = [
 			},
 			/***************************************
 			 ** Teams / Progetti
-			 **************************************/
-			 {
+			**************************************/
+			{
 				path: 'teams/:slug/projects/create',
 				name: 'Projects.create',
 				component: () => import(/* webpackChunkName: "projectsCreate" */ '../views/Dashboard/Teams/Projects/Create.vue'),
-				props: true,
-				meta: { auth: true }
-			},
-			{
-				path: 'teams/:slug/projects',
-				name: 'Projects',
-				component: () => import(/* webpackChunkName: "projects" */ '../views/Dashboard/Teams/Projects/Index.vue'),
 				props: true,
 				meta: { auth: true }
 			},
@@ -121,11 +114,25 @@ const routes = [
 			},
 			/***************************************
 			 ** Ruoli
-			 **************************************/
+			**************************************/
 			{
 				path: 'roles',
 				name: 'Roles',
 				component: () => import(/* webpackChunkName: "roles" */ '../views/Dashboard/Roles/index.vue'),
+				meta: { auth: true }
+			},
+			/***************************************
+			 ** Tasks
+			**************************************/
+			{
+				path: 'teams/:tslug/projects/:pslug/tasks/:id/edit',
+				name: 'Tasks.edit',
+				component: () => import(/* webpackChunkName: "tasksEdit" */ '../views/Dashboard/Teams/Projects/Tasks/Edit.vue'),
+				props(route) {
+					const props = { ...route.params }
+					props.id = +props.id
+					return props
+				},
 				meta: { auth: true }
 			},
 		]

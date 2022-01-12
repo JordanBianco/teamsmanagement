@@ -14,6 +14,18 @@ export const DELETE_USER = (state, index) => {
     state.users.data.splice(index, 1)
 }
 
+export const DELETE_USERS = (state, users) => {
+    let indexes = []
+
+    users.filter(user => {
+        indexes.push(state.users.data.indexOf(user))
+    })
+
+    for (var i = indexes.length -1; i >= 0; i--) {
+        state.users.data.splice(indexes[i], 1);
+    }
+}
+
 export const SET_ERRORS = (state, errors) => {
     state.errors = errors
 }

@@ -55,6 +55,10 @@ export const updateTeam = async ({commit}, {team}) => {
         })
         if (res.status === 200) {
             router.push({ name: 'Teams.edit', params: {slug: res.data.data.slug} }).catch(() => {})
+
+            commit('notifications/ADD_NOTIFICATION', {
+                message: 'Team aggiornato'
+            }, { root:true });
         }
     } catch (error) {
         if (error.response.status === 422) {    
@@ -69,6 +73,10 @@ export const deleteTeam = async ({commit}, {id, index}) => {
         if (res.status === 200) {
             if (index != undefined) {
                 commit('DELETE_TEAM', index)
+
+                commit('notifications/ADD_NOTIFICATION', {
+                    message: 'Team eliminato'
+                }, { root:true });
             }
             else {
                 router.push({ name: 'Teams' })
@@ -80,10 +88,18 @@ export const deleteTeam = async ({commit}, {id, index}) => {
 }
 
 export const deleteTeams = async ({commit}, {teams}) => {
+    let ids = []
+    teams.filter(team => { ids.push(team.id) })
     try {
-        const res = await api.delete('admin/teams/delete', { params: {ids: teams }})
+        const res = await api.delete('admin/teams/delete', { params: {
+            ids: ids
+        }})
         if (res.status === 200) {
-            commit('SET_SUCCESS_STATUS', true)
+            commit('DELETE_TEAMS', teams)
+
+            commit('notifications/ADD_NOTIFICATION', {
+                message: 'Teams eliminati'
+            }, { root:true });
         }
     } catch (error) {
         console.log(error)
